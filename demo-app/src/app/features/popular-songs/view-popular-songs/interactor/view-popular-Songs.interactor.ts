@@ -8,9 +8,9 @@ export class ViewPopularSongsInteractor {
   @inject(TYPES.ContosoPort)
   private readonly contosoServerPort!: contoso.ContosoPort;
 
-  async getPopularSongs(): Promise<Song[]> {
+  async getPopularSongs( maxNumber: number ): Promise<Song[]> {
     const songs = await this.contosoServerPort.getSongs();
-    return songs.sort((a, b) => b.popularity - a.popularity).slice(0, 10);
+    return songs.sort((a, b) => b.popularity - a.popularity).slice(0, maxNumber).slice(0, 10);
   }
 
 }

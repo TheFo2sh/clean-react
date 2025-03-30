@@ -2,6 +2,7 @@
 import { Project } from 'ts-morph'
 import * as path from 'path'
 import * as fs from 'fs'
+import * as prettier from 'prettier'
 
 const project = new Project({
     tsConfigFilePath: './tsconfig.json',
@@ -24,6 +25,11 @@ interactorFiles.forEach((sourceFile) => {
             const thunkName = `${capitalize(methodName)}`
             const interactorType = className
             const thunkFile = sourceFile.getFilePath().replace('/interactor/', '/presenter/').replace(sourceFile.getBaseName(), `${methodName}.thunk.ts`)
+            const params = method.getParameters()
+            const hasArgs = params.length > 0
+            const declareArgs = params.map((p) => `arg:{${p.getName()}:${p.getType().getText()}}`).join(', ')
+
+            const callArgs = params.map((p) => `arg.${p.getName()}`).join(', ')
             console.log('thunkFile: ' + thunkFile)
             const thunkCode = `
 import { createAsyncThunk } from '@reduxjs/toolkit'
@@ -31,12 +37,12 @@ import { ${interactorType} } from '../interactor/${sourceFile.getBaseNameWithout
 import { TYPES } from '../interactor/TYPES'
 
 
-export const ${thunkName} = createAsyncThunk<Song[], void, { rejectValue: string }>(
-  '${featureName.replace('.interactor','')}/${methodName}',
-  async (_, { rejectWithValue }) => {
+export const ${thunkName} = createAsyncThunk(
+  '${featureName.replace('.interactor', '')}/${methodName}',
+  async (${hasArgs ? declareArgs : '_'}, { rejectWithValue }) => {
     try {
       const interactor = container.get<${interactorType}>(TYPES.${interactorType})
-      return await interactor.${methodName}()
+      return await interactor.${methodName}(${callArgs})
     } catch (err) {
       return rejectWithValue('Failed to ${methodName}')
     }
@@ -44,8 +50,10 @@ export const ${thunkName} = createAsyncThunk<Song[], void, { rejectValue: string
 )
 `
 
-            fs.mkdirSync(path.dirname(thunkFile), { recursive: true })
-            fs.writeFileSync(thunkFile, thunkCode)
+            fs.mkdirSync(path.dirname(thunkFile), {recursive: true})
+            prettier.format(thunkCode, {parser: 'typescript'}).then((formatted) => {
+                fs.writeFileSync(thunkFile, formatted)
+            })
         })
     })
 })
