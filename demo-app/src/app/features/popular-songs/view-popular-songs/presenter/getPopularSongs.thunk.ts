@@ -1,18 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ViewPopularSongsInteractor } from "../interactor/view-popular-Songs.interactor";
-import { TYPES } from "../interactor/TYPES";
+import { ViewPopularSongsUseCase } from "../use-case/view-popular-Songs.usecase";
+import { TYPES } from "../use-case/TYPES";
 
 export const GetPopularSongs = createAsyncThunk(
   "view-popular-Songs/getPopularSongs",
   async (arg: { maxNumber: number }, { rejectWithValue }) => {
     try {
-      const interactor = container.get<ViewPopularSongsInteractor>(
-        TYPES.ViewPopularSongsInteractor,
+      const usecase = container.get<ViewPopularSongsUseCase>(
+        TYPES.ViewPopularSongsUseCase,
       );
-      return await interactor.getPopularSongs(arg.maxNumber);
+      return await usecase.getPopularSongs(arg.maxNumber);
     } catch (err) {
-        console.log(err);
-      return rejectWithValue("Failed to getPopularSongs" + err);
+      return rejectWithValue("Failed to getPopularSongs");
     }
   },
 );

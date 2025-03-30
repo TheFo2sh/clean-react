@@ -3,7 +3,7 @@ import {TYPES} from "../../../../../adapters/di/TYPES.ts";
 import * as contoso from "../../../../ports/contoso-port.ts";
 
 @injectable()
-export class ViewPopularSongsInteractor {
+export class ViewPopularSongsUseCase {
 
   @inject(TYPES.ContosoPort)
   private readonly contosoServerPort!: contoso.ContosoPort;
