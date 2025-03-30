@@ -1,5 +1,5 @@
 // tools/generate-thunks.ts
-import { Project, SyntaxKind } from 'ts-morph'
+import { Project } from 'ts-morph'
 import * as path from 'path'
 import * as fs from 'fs'
 
@@ -21,7 +21,7 @@ interactorFiles.forEach((sourceFile) => {
         methods.forEach((method) => {
             const methodName = method.getName()
             const featureName = sourceFile.getBaseNameWithoutExtension().replace(/-interactor$/, '')
-            const thunkName = `fetch${capitalize(methodName)}`
+            const thunkName = `${capitalize(methodName)}`
             const interactorType = className
             const thunkFile = sourceFile.getFilePath().replace('/interactor/', '/presenter/').replace(sourceFile.getBaseName(), `${methodName}.thunk.ts`)
             console.log('thunkFile: ' + thunkFile)

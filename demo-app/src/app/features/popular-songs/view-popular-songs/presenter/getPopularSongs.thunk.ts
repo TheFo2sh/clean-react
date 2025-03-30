@@ -4,7 +4,7 @@ import { ViewPopularSongsInteractor } from '../interactor/view-popular-Songs.int
 import { TYPES } from '../interactor/TYPES'
 
 
-export const fetchGetPopularSongs = createAsyncThunk<Song[], void, { rejectValue: string }>(
+export const GetPopularSongs = createAsyncThunk<Song[], void, { rejectValue: string }>(
   'view-popular-Songs/getPopularSongs',
   async (_, { rejectWithValue }) => {
     try {

@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { fetchPopularSongs } from './thunk'
-import {Song} from "../../../../entities/song.ts";
+import {GetPopularSongs} from "./getPopularSongs.thunk.ts";
 
 
 const initialState = {
@@ -15,15 +14,15 @@ export const songsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchPopularSongs.pending, (state) => {
+            .addCase(GetPopularSongs.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchPopularSongs.fulfilled, (state, action) => {
+            .addCase(GetPopularSongs.fulfilled, (state, action) => {
                 state.loading = false
                 state.songs = action.payload
             })
-            .addCase(fetchPopularSongs.rejected, (state, action) => {
+            .addCase(GetPopularSongs.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error?.message ?? 'Unknown error'
             })
