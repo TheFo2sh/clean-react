@@ -11,7 +11,8 @@ export const GetPopularSongs = createAsyncThunk(
       );
       return await interactor.getPopularSongs(arg.maxNumber);
     } catch (err) {
-      return rejectWithValue("Failed to getPopularSongs");
+        console.log(err);
+      return rejectWithValue("Failed to getPopularSongs" + err);
     }
   },
 );

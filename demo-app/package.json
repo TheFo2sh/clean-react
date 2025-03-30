@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "npm run generate-thunks && vite",
+    "generate-thunks" : "npx tsx  tools/generate-thunks.ts",
+    "build": "npm run generate-thunks && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
