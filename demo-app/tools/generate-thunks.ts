@@ -34,14 +34,14 @@ usecaseFiles.forEach((sourceFile) => {
             const thunkCode = `
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ${usecaseType} } from '../use-case/${sourceFile.getBaseNameWithoutExtension()}'
-import { TYPES } from '../use-case/TYPES'
+
 
 
 export const ${thunkName} = createAsyncThunk(
   '${featureName.replace('.usecase', '')}/${methodName}',
   async (${hasArgs ? declareArgs : '_'}, { rejectWithValue }) => {
     try {
-      const usecase = container.get<${usecaseType}>(TYPES.${usecaseType})
+      const usecase = container.get(${usecaseType})
       return await usecase.${methodName}(${callArgs})
     } catch (err) {
       return rejectWithValue('Failed to ${methodName}')
