@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { fetchPopularSongs } from './thunk'
-import {Song} from "../../../../../ports/contoso/models/song.ts";
+import {Song} from "../../../../entities/song.ts";
 
 
 const initialState = {

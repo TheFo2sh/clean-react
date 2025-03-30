@@ -1,4 +1,4 @@
-import {Song} from "./models/song.ts";
+import {Song} from "../entities/song.ts";
 
 export interface ContosoPort {
     getSongs(): Promise<Song[]>

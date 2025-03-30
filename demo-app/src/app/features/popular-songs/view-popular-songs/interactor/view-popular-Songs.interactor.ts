@@ -1,7 +1,6 @@
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../../../../ports/contoso/di/TYPES.ts";
-import {Song} from "../../../../../ports/contoso/models/song.ts";
-import * as contoso from "../../../../../ports/contoso/contoso-port.ts";
+import * as contoso from "../../../../ports/contoso-port.ts";
 
 @injectable()
 export class ViewPopularSongsInteractor {

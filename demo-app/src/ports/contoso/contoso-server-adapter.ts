@@ -1,7 +1,6 @@
 import axios, {AxiosInstance, AxiosResponse} from 'axios'
 import {injectable} from "inversify";
-import {ContosoPort} from "./contoso-port.ts";
-import {Song} from "./models/song.ts";
+import {ContosoPort} from "../../app/ports/contoso-port.ts";
 import {ContosoResponse} from "./models/contosoResponse.ts";
 
 @injectable()

@@ -6,4 +6,8 @@ const container = new Container()
 
 registerContosoServerPort(container);
 registerInteractors(container);
-export default container
+
+declare global {
+    var container: Container
+}
+globalThis.container = container;
