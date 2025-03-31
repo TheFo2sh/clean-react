@@ -1,10 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {ViewPopularSongsThunk} from "./view-popular-songs/ViewPopularSongs.thunk.ts";
-import {Future} from "../../base/Future.ts";
+import {Future, Operational} from "../../base/Future.ts";
 
 
-const initialState :Future<Song[]>= {
-    Value: [] as Song[],
+const initialState :Future<Operational<Song>[]>= {
+    Value: [] ,
     IsPending: false,
     Error: null,
 }
@@ -21,7 +21,7 @@ export const songsSlice = createSlice({
             })
             .addCase(ViewPopularSongsThunk.fulfilled, (state, action) => {
                 state.IsPending = false
-                state.Value = action.payload
+                state.Value = action.payload.map((item) => ({id: item.id, object: item, status: 'Idle'}))
             })
             .addCase(ViewPopularSongsThunk.rejected, (state, action) => {
                 state.IsPending = false

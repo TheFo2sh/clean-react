@@ -13,9 +13,11 @@ export const PopularSongsList = () => {
             <p>Loading: {popularSongs.IsPending ? 'true' : 'false'}</p>
             <p>Error: {popularSongs.Error?.message}</p>
             <ul>
-                {popularSongs.Value.map((song) => (
-                    <li key={song.id}>{song.title}</li>
-                ))}
+                {popularSongs.Value
+                    .filter((item) => item.status == 'Idle')
+                    .map((item)=> item.object as Song)
+                    .map((item) => <li key={item.id}>{item.title}</li>
+                )}
             </ul>
         </div>
     )
