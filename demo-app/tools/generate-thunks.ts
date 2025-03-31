@@ -39,10 +39,10 @@ export const ${thunkName}Thunk = createAsyncThunk(
   '${featureName.replace('.usecase', '')}/${thunkName}',
   async (${hasArgs ? declareArgs : '_'}, { rejectWithValue }) => {
     try {
-      const usecase = container.get(${usecaseType})
-      return await usecase.${method.getName()}(${callArgs})
+      const usecase = container.get(${usecaseType});
+      return await usecase.${method.getName()}(${callArgs});
     } catch (err) {
-      return rejectWithValue('Failed to ${thunkName}')
+      return rejectWithValue(err);
     }
   }
 )

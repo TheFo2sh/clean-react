@@ -9,7 +9,7 @@ export const ViewPopularSongsThunk = createAsyncThunk(
       const usecase = container.get(ViewPopularSongsUseCase);
       return await usecase.getPopularSongs(arg.maxNumber);
     } catch (err) {
-      return rejectWithValue("Failed to ViewPopularSongs");
+      return rejectWithValue(err);
     }
   },
 );
