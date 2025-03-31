@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
-import { songsSlice } from '../features/popular-songs/view-popular-songs/presenter/slice'
+import { songsSlice } from '../features/popular-songs/slice.ts'
 
 
 export const store = configureStore({

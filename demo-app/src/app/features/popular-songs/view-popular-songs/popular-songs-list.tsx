@@ -1,12 +1,12 @@
 import {useEffect} from "react";
 import {AppDispatch, RootState} from "../../../core/store.ts";
 import {useDispatch, useSelector} from "react-redux";
-import {GetPopularSongs} from "./presenter/getPopularSongs.thunk.ts";
+import {ViewPopularSongsThunk} from "./ViewPopularSongs.thunk.ts";
 
 export const PopularSongsList = () => {
     const { songs, loading, error } = useSelector((state: RootState) => state.popularSongs)
     const dispatch = useDispatch<AppDispatch>()
-    useEffect(() => {dispatch(GetPopularSongs({maxNumber : 2}));}, [])
+    useEffect(() => {dispatch(ViewPopularSongsThunk({maxNumber : 2}));}, [])
 
     return (
         <div>
