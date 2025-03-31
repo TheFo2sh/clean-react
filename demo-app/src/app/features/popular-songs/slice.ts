@@ -1,11 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {ViewPopularSongsThunk} from "./view-popular-songs/ViewPopularSongs.thunk.ts";
+import {Future} from "../../base/Future.ts";
 
 
-const initialState = {
-    songs: [] as Song[],
-    loading: false,
-    error: null as string | null,
+const initialState :Future<Song[]>= {
+    Value: [] as Song[],
+    IsPending: false,
+    Error: null,
 }
 
 export const songsSlice = createSlice({
@@ -15,16 +16,16 @@ export const songsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(ViewPopularSongsThunk.pending, (state) => {
-                state.loading = true
-                state.error = null
+                state.IsPending = true
+                state.Error = null
             })
             .addCase(ViewPopularSongsThunk.fulfilled, (state, action) => {
-                state.loading = false
-                state.songs = action.payload
+                state.IsPending = false
+                state.Value = action.payload
             })
             .addCase(ViewPopularSongsThunk.rejected, (state, action) => {
-                state.loading = false
-                state.error = action.error?.message ?? 'Unknown error'
+                state.IsPending = false
+                state.Error = new Error( action.error?.message ?? 'Unknown error');
             })
     }
 });

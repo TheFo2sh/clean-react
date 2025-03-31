@@ -1,0 +1,1 @@
+export type Future<T> = { Value: T  , Error: Error | null , IsPending: boolean  }

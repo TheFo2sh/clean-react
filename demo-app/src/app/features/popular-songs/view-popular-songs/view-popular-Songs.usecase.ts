@@ -6,8 +6,7 @@ import type {ContosoPort} from "../../../ports/contoso-port.ts";
 export class ViewPopularSongsUseCase {
 
   constructor(
-      @inject(TYPES.ContosoPort) public readonly contosoServerPort: ContosoPort
-  )
+      @inject(TYPES.ContosoPort) public readonly contosoServerPort: ContosoPort)
   {}
 
   async getPopularSongs(maxNumber: number): Promise<Song[]> {
