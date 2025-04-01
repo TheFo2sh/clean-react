@@ -18,7 +18,7 @@ usecaseFiles.forEach((sourceFile) => {
         if (!className?.toLocaleLowerCase().endsWith('usecase')) return
         const methods = cls.getMethods()
 
-        methods.forEach((method) => {
+        methods.filter(method=>method.getName()==='execute').forEach((method) => {
             const featureName = sourceFile.getBaseNameWithoutExtension().replace(/-useCase$/, '')
             const thunkName = `${capitalize(className.replace('UseCase',''))}`
             const usecaseType = className

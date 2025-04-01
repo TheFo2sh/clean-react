@@ -6,7 +6,7 @@ import {ViewPopularSongsThunk} from "./ViewPopularSongs.thunk.ts";
 export const PopularSongsList = () => {
     const popularSongs = useSelector((state: RootState) => state.popularSongs)
     const dispatch = useDispatch<AppDispatch>()
-    useEffect(() => {dispatch(ViewPopularSongsThunk({maxNumber : 2}));}, [])
+    useEffect(() => {dispatch(ViewPopularSongsThunk({input:{maxNumber : 2}}));}, [])
 
     return (
         <div>
