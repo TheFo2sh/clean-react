@@ -1,7 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {ViewPopularSongsThunk} from "./view-popular-songs/ViewPopularSongs.thunk.ts";
+import {ViewPopularSongsReducer} from "./view-popular-songs/ViewPopularSongs.thunk.ts";
 import {Future, Operational} from "../../base/Future.ts";
-import {ViewPopularSongsUseCase} from "./view-popular-songs/view-popular-Songs.usecase.ts";
 
 
 const initialState :Future<Operational<Song>[]>= {
@@ -13,20 +12,7 @@ const initialState :Future<Operational<Song>[]>= {
 export const songsSlice = createSlice({
     name: 'popularSongs',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(ViewPopularSongsThunk.pending, (state) => {
-                state.IsPending = true
-                state.Error = null
-            })
-            .addCase(ViewPopularSongsThunk.fulfilled, (state, action) => {
-                state.IsPending = false
-                state.Value = container.get(ViewPopularSongsUseCase).apply(state.Value, action.payload);
-            })
-            .addCase(ViewPopularSongsThunk.rejected, (state, action) => {
-                state.IsPending = false
-                state.Error = new Error( action.error?.message ?? 'Unknown error');
-            })
+    reducers: {}, extraReducers: (builder) => {
+        ViewPopularSongsReducer(builder);
     }
 });
