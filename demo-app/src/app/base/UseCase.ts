@@ -1,6 +1,7 @@
-export interface UseCase<Tnput,TExecutionResult, TState> {
+export abstract class UseCase<Tnput,TExecutionResult, TState> {
 
-    apply(currentState: TState,result: TExecutionResult): TState;
-    execute(input: Tnput): Promise<TExecutionResult>;
+
+    abstract apply(currentState: TState,result: TExecutionResult): TState;
+    abstract execute(input: Tnput): Promise<TExecutionResult>;
 
 }
